@@ -1,0 +1,43 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <!-- Name of the web application -->
+    <display-name>Restaurant Management System</display-name>
+
+    <!-- Define a servlet (Jersey is used for REST APIs) -->
+    <servlet>
+        
+        <!-- Logical name of the servlet -->
+        <servlet-name>JerseyServlet</servlet-name>
+        
+        <!-- Jersey servlet class that handles REST requests -->
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+
+        <!-- Initialization parameter for Jersey -->
+        <init-param>
+            
+            <!-- Tells Jersey where to scan for REST resource classes -->
+            <param-name>jersey.config.server.provider.packages</param-name>
+            
+            <!-- Package where your API classes (controllers) are located -->
+            <param-value>com.rms</param-value>
+        </init-param>
+
+        <!-- Load this servlet when the server starts (priority = 1) -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Map the servlet to a URL pattern -->
+    <servlet-mapping>
+        
+        <!-- Reference to the servlet defined above -->
+        <servlet-name>JerseyServlet</servlet-name>
+        
+        <!-- All requests starting with /api/ will be handled by Jersey -->
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
