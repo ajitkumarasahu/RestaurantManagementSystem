@@ -44,17 +44,19 @@ public class TestController {
         String odiaMonthName = "ଏପ୍ରିଲ"; // April in Odia
 
         // Manually building JSON response as a String
-        String response = "{"
-                + "\"status\":\"SUCCESS\","
-                + "\"statusCode\":200,"
-                + "\"message\":\"Restaurant Management System API is working!\","
-                + "\"path\":\"/api/test\","
-                + "\"date\":\"" + now.format(dateFormatter) + "\","
-                + "\"time\":\"" + now.format(timeFormatter) + "\","
-                + "\"serverDateTime\":\"" + now.format(dateTimeFormatter) + "\","
-                + "\"dayName\":\"" + dayName + "\","
-                + "\"monthOdia\":\"" + odiaMonthName + "\""
-                + "}";
+        String response = 
+        
+        "{"
+            + "\"status\":\"SUCCESS\","
+            + "\"statusCode\":200,"
+            + "\"message\":\"Restaurant Management System API is working!\","
+            + "\"path\":\"/api/test\","
+            + "\"date\":\"" + now.format(dateFormatter) + "\","
+            + "\"time\":\"" + now.format(timeFormatter) + "\","
+            + "\"serverDateTime\":\"" + now.format(dateTimeFormatter) + "\","
+            + "\"dayName\":\"" + dayName + "\","
+            + "\"monthOdia\":\"" + odiaMonthName + "\""
+        + "}";
 
         // Return JSON response
         return response;
