@@ -30,8 +30,10 @@ public class AuthController {
     @Path("/register")
     public Response register(User user) {
 
+        String result =  authService.register(user);
+
         // Call service to register user
-        String result = authService.register(user);
+        //String result = authService.register(user);
 
         // If registration successful
         if (result.equals("User Registered Successfully")) {
@@ -64,6 +66,7 @@ public class AuthController {
     @POST
     @Path("/login")
     public Response login(User loginRequest) {
+
 
         // Validate user credentials using service layer
         User user = authService.login(
