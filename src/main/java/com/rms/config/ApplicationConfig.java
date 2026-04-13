@@ -7,7 +7,7 @@ import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 // This annotation sets the base URL path for all REST endpoints
-// All APIs will be available under: http://localhost:8080/your-app/api
+// All APIs will be available under: http://localhost:8080/RestaurantManagementSystem/api/* */
 @ApplicationPath("/api")
 
 // This class activates JAX-RS (Jersey) in your application
