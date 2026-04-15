@@ -1,9 +1,16 @@
 package com.rms.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 // Import model, JWT utility, and service layer
 import com.rms.model.User;
 import com.rms.security.JwtUtil;
 import com.rms.service.AuthService;
+import com.rms.util.DBConnection;
 
 // JAX-RS imports
 import jakarta.ws.rs.*;

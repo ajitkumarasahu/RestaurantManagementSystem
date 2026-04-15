@@ -1,11 +1,13 @@
 package com.rms.service;
 
+import java.util.List;
+
 // Import DAO (Database Access Object)
 import com.rms.dao.UserDAO;
 
 // Import User model
 import com.rms.model.User;
-
+import com.rms.security.JwtUtil;
 // Utility class for password hashing & verification
 import com.rms.util.PasswordUtil;
 
