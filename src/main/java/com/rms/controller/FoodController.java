@@ -27,38 +27,59 @@ public class FoodController {
 
             if (food.getName() == null || food.getName().isEmpty()) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Food name required\",\"statusCode\":400,\"path\":\"/api/foods\"}"
-                ).build();
+                "{"
+                + "\"message\":\"Food name required\","
+                + "\"statusCode\":400,"
+                + "\"path\":\"/api/foods\""
+                + "}"
+            ).build();
             }
 
             if (food.getPrice() <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Price must be greater than 0\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Price must be greater than 0\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             if (food.getRestaurantId() <= 0 || food.getCategoryId() <= 0) {
                 return Response.status(400).entity(
-                        "{ \"message\":\"Restaurant & Category required\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Restaurant & Category required\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             String error = FoodValidator.validateCreate(food);
             if(error != null){
                 return Response.status(400).entity(
-                    "{ \"message\":\""+error+"\",\"statusCode\":400,\"path\":\"/api/foods\"}"
+                    "{"
+                    + "\"message\":\""+error+"\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/foods\""
+                    + "}"
                 ).build();
             }
 
             service.create(food);
 
             return Response.status(201).entity(
-                "{ \"message\":\"Food Added Successfully\",\"statusCode\":201,\"path\":\"/api/foods\"}"
+                "{"
+                + "\"message\":\"Food Added Successfully\","
+                + "\"statusCode\":201,"
+                + "\"path\":\"/api/foods\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -71,7 +92,10 @@ public class FoodController {
 
             if (restaurantId <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Invalid restaurant id\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Invalid restaurant id\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
@@ -79,7 +103,10 @@ public class FoodController {
 
             if (list.isEmpty()) {
                 return Response.status(404).entity(
-                    "{ \"message\":\"No Food Items Found\",\"statusCode\":404}"
+                    "{"
+                    + "\"message\":\"No Food Items Found\","
+                    + "\"statusCode\":404"
+                    + "}"
                 ).build();
             }
 
@@ -87,7 +114,10 @@ public class FoodController {
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -99,38 +129,58 @@ public class FoodController {
 
             if (food.getId() <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Food ID required\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Food ID required\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             if (food.getName() == null || food.getName().isEmpty()) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Food name required\",\"statusCode\":400}"
-                ).build();
+                    "{"
+                    + "\"message\":\"Food name required\","
+                    + "\"statusCode\":400"
+                    + "}"
+                ).build();  
             }
 
             if (food.getPrice() <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Invalid price\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Invalid price\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             String error = FoodValidator.validateUpdate(food);
             if(error != null){
                 return Response.status(400).entity(
-                    "{ \"message\":\""+error+"\",\"statusCode\":400,\"path\":\"/api/foods\"}"
+                    "{"
+                    + "\"message\":\""+error+"\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/foods\""
+                    + "}"
                 ).build();
             }
 
             service.update(food);
 
-            return Response.ok(
-                "{ \"message\":\"Food Updated Successfully\",\"statusCode\":200,\"path\":\"/api/foods\"}"
+           return Response.ok(
+                "{"
+                + "\"message\":\"Food Updated Successfully\","
+                + "\"statusCode\":200,"
+                + "\"path\":\"/api/foods\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                    "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -141,20 +191,30 @@ public class FoodController {
     public Response deleteFood(@PathParam("id") int id) {
         try {
             if (id <= 0) {
-                return Response.status(400).entity(
-                    "{ \"message\":\"Invalid Food ID\",\"statusCode\":400}"
+               return Response.status(400).entity(
+                    "{"
+                    + "\"message\":\"Invalid Food ID\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             service.delete(id);  // Assuming a service.delete method exists
 
             return Response.ok(
-                "{ \"message\":\"Food Deleted Successfully\",\"statusCode\":200,\"path\":\"/api/foods\"}"
+                "{"
+                + "\"message\":\"Food Deleted Successfully\","
+                + "\"statusCode\":200,"
+                + "\"path\":\"/api/foods\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
