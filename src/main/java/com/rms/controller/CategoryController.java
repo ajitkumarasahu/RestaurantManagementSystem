@@ -27,7 +27,11 @@ public class CategoryController {
 
             if (c.getName() == null || c.getName().isEmpty()) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Category name required\",\"statusCode\":400,\"path\":\"/api/categories\"}"
+                    "{"
+                    + "\"message\":\"Category name required\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/categories\""
+                    + "}"
                 ).build();
             }
 
@@ -35,25 +39,40 @@ public class CategoryController {
 
             if(error != null){
                 return Response.status(400).entity(
-                    "{ \"message\":\""+error+"\",\"statusCode\":400,\"path\":\"/api/categories\"}"
+                    "{"
+                    + "\"message\":\""+error+"\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/categories\""
+                    + "}"
                 ).build();
             }
 
             if (c.getRestaurantId() <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Restaurant ID required\",\"statusCode\":400,\"path\":\"/api/categories\"}"
+                    "{"
+                    + "\"message\":\"Restaurant ID required\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/categories\""
+                    + "}"
                 ).build();
             }
 
             service.create(c);
 
             return Response.status(201).entity(
-                    "{ \"message\":\"Category Created Successfully\",\"statusCode\":201,\"path\":\"/api/categories\"}"
+                "{"
+                + "\"message\":\"Category Created Successfully\","
+                + "\"statusCode\":201,"
+                + "\"path\":\"/api/categories\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
-            return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+           return Response.status(500).entity(
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -65,8 +84,11 @@ public class CategoryController {
         try {
 
             if (restaurantId <= 0) {
-                return Response.status(400).entity(
-                    "{ \"message\":\"Invalid restaurant id\",\"statusCode\":400}"
+               return Response.status(400).entity(
+                    "{"
+                    + "\"message\":\"Invalid restaurant id\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
@@ -74,7 +96,10 @@ public class CategoryController {
 
             if (list.isEmpty()) {
                 return Response.status(404).entity(
-                    "{ \"message\":\"No Categories Found\",\"statusCode\":404}"
+                    "{"
+                    + "\"message\":\"No Categories Found\","
+                    + "\"statusCode\":404"
+                    + "}"
                 ).build();
             }
 
@@ -82,7 +107,10 @@ public class CategoryController {
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -94,13 +122,19 @@ public class CategoryController {
 
             if (c.getId() <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Category ID required\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Category ID required\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             if (c.getName() == null || c.getName().isEmpty()) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Category name required\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Category name required\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
@@ -110,17 +144,28 @@ public class CategoryController {
 
             if(error != null){
                 return Response.status(400).entity(
-                    "{ \"message\":\""+error+"\",\"statusCode\":400,\"path\":\"/api/categories\"}"
+                    "{"
+                    + "\"message\":\""+error+"\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/categories\""
+                    + "}"
                 ).build();
             }
 
             return Response.ok(
-                "{ \"message\":\"Category Updated\",\"statusCode\":200,\"path\":\"/api/categories\"}"
+                "{"
+                + "\"message\":\"Category Update Successfully\","
+                + "\"statusCode\":200,"
+                + "\"path\":\"/api/categories\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
@@ -132,26 +177,40 @@ public class CategoryController {
         try {
             if (id <= 0) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"Invalid Category ID\",\"statusCode\":400}"
+                    "{"
+                    + "\"message\":\"Invalid Category ID\","
+                    + "\"statusCode\":400"
+                    + "}"
                 ).build();
             }
 
             String error = CategoryValidator.validateId(id);
             if (error != null) {
                 return Response.status(400).entity(
-                    "{ \"message\":\"" + error + "\",\"statusCode\":400,\"path\":\"/api/categories\"}"
+                    "{"
+                    + "\"message\":\"" + error + "\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/categories\""
+                    + "}"
                 ).build();
             }
 
             service.delete(id);
 
             return Response.ok(
-                "{ \"message\":\"Category Deleted\",\"statusCode\":200,\"path\":\"/api/categories\"}"
+                "{"
+                + "\"message\":\"Category Deleted Successfully\","
+                + "\"statusCode\":200,"
+                + "\"path\":\"/api/categories\""
+                + "}"
             ).build();
 
         } catch (Exception e) {
             return Response.status(500).entity(
-                "{ \"message\":\"Server Error\",\"statusCode\":500}"
+                "{"
+                + "\"message\":\"Server Error\","
+                + "\"statusCode\":500"
+                + "}"
             ).build();
         }
     }
