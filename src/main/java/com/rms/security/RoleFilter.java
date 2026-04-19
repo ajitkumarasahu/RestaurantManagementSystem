@@ -73,5 +73,55 @@ public class RoleFilter implements ContainerRequestFilter {
                 ).build()
             );
         }
+
+        // Protect menu + restaurant APIs
+        if (path.startsWith("categories") || path.startsWith("foods") || path.startsWith("owner")) {
+
+            //String authHeader = request.getHeaderString("Authorization");
+
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                requestContext.abortWith(
+                    Response.status(Response.Status.FORBIDDEN)
+                    .entity(
+                        "{"
+                        + "\"message\":\"Token missing\","
+                        + "\"statusCode\":401,"
+                        + "\"path\":\"" + path + "\""
+                        + "}"
+                    ).build()
+                );
+            }
+        }
+        
+        ///String token = authHeader.substring("Bearer ".length());
+
+        if (!JwtUtil.validateToken(token)) {
+            requestContext.abortWith(
+                Response.status(Response.Status.FORBIDDEN)
+                .entity(
+                    "{"
+                    + "\"message\":\"Invalid token\","
+                    + "\"statusCode\":401,"
+                    + "\"path\":\"" + path + "\""
+                    + "}"
+                ).build()
+            );
+        }
+
+        String roles = JwtUtil.getRole(token);
+
+        // 🔥 Allow only OWNER & ADMIN
+        if (!(roles.equals("OWNER") || roles.equals("ADMIN"))) {
+            requestContext.abortWith(
+                Response.status(Response.Status.FORBIDDEN)
+                .entity(
+                    "{"
+                    + "\"message\":\"Access denied OWNER or ADMIN only  \","
+                    + "\"statusCode\":403,"
+                    + "\"path\":\"" + path + "\""
+                    + "}"
+                ).build()
+            );
+        }
     }
 }

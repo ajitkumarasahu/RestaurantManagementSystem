@@ -75,4 +75,14 @@ public class JwtUtil {
             .parseSignedClaims(token)   // Parse token
             .getPayload();              // Extract claims (data inside token)
     }
+
+    public static String getRole(String token) {
+        Claims claims = Jwts.parser()
+            .verifyWith(getSigningKey()) // Verify signature using secret key
+            .build()
+            .parseSignedClaims(token)   // Parse token
+            .getPayload();  
+
+        return claims.get("role", String.class);
+    }
 }
