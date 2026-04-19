@@ -1,21 +1,27 @@
 package com.rms.controller;
 
+// Import model, service, validator
 import com.rms.model.Category;
 import com.rms.service.CategoryService;
 import com.rms.validation.CategoryValidator;
 
+// JAX-RS imports
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 import java.util.List;
 
+// Base URL: /api/categories
 @Path("/categories")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CategoryController {
 
+    // Service layer object
     CategoryService service;
 
+    // Constructor (initializing service)
     public CategoryController() throws Exception {
         service = new CategoryService();
     }
@@ -25,6 +31,7 @@ public class CategoryController {
     public Response createCategory(Category c) {
         try {
 
+            // Basic validation (name required)
             if (c.getName() == null || c.getName().isEmpty()) {
                 return Response.status(400).entity(
                     "{"
@@ -35,18 +42,20 @@ public class CategoryController {
                 ).build();
             }
 
+            // Custom validator check
             String error = CategoryValidator.validateCreate(c);
 
-            if(error != null){
+            if (error != null) {
                 return Response.status(400).entity(
                     "{"
-                    + "\"message\":\""+error+"\","
+                    + "\"message\":\"" + error + "\","
                     + "\"statusCode\":400,"
                     + "\"path\":\"/api/categories\""
                     + "}"
                 ).build();
             }
 
+            // Validate restaurant ID
             if (c.getRestaurantId() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -57,6 +66,7 @@ public class CategoryController {
                 ).build();
             }
 
+            // Save category
             service.create(c);
 
             return Response.status(201).entity(
@@ -68,7 +78,7 @@ public class CategoryController {
             ).build();
 
         } catch (Exception e) {
-           return Response.status(500).entity(
+            return Response.status(500).entity(
                 "{"
                 + "\"message\":\"Server Error\","
                 + "\"statusCode\":500"
@@ -83,8 +93,9 @@ public class CategoryController {
     public Response getByRestaurant(@PathParam("restaurantId") int restaurantId) {
         try {
 
+            // Validate restaurant ID
             if (restaurantId <= 0) {
-               return Response.status(400).entity(
+                return Response.status(400).entity(
                     "{"
                     + "\"message\":\"Invalid restaurant id\","
                     + "\"statusCode\":400"
@@ -92,8 +103,10 @@ public class CategoryController {
                 ).build();
             }
 
+            // Fetch categories
             List<Category> list = service.getByRestaurant(restaurantId);
 
+            // If empty list → 404
             if (list.isEmpty()) {
                 return Response.status(404).entity(
                     "{"
@@ -103,6 +116,7 @@ public class CategoryController {
                 ).build();
             }
 
+            // Return data
             return Response.ok(list).build();
 
         } catch (Exception e) {
@@ -120,6 +134,7 @@ public class CategoryController {
     public Response updateCategory(Category c) {
         try {
 
+            // Validate ID
             if (c.getId() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -129,6 +144,7 @@ public class CategoryController {
                 ).build();
             }
 
+            // Validate name
             if (c.getName() == null || c.getName().isEmpty()) {
                 return Response.status(400).entity(
                     "{"
@@ -138,19 +154,21 @@ public class CategoryController {
                 ).build();
             }
 
-            service.update(c);
-
+            // 🔥 FIX: Validation should come BEFORE update
             String error = CategoryValidator.validateUpdate(c);
 
-            if(error != null){
+            if (error != null) {
                 return Response.status(400).entity(
                     "{"
-                    + "\"message\":\""+error+"\","
+                    + "\"message\":\"" + error + "\","
                     + "\"statusCode\":400,"
                     + "\"path\":\"/api/categories\""
                     + "}"
                 ).build();
             }
+
+            // Update category
+            service.update(c);
 
             return Response.ok(
                 "{"
@@ -175,6 +193,8 @@ public class CategoryController {
     @Path("/{id}")
     public Response deleteCategory(@PathParam("id") int id) {
         try {
+
+            // Validate ID
             if (id <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -184,7 +204,9 @@ public class CategoryController {
                 ).build();
             }
 
+            // Custom validator
             String error = CategoryValidator.validateId(id);
+
             if (error != null) {
                 return Response.status(400).entity(
                     "{"
@@ -195,6 +217,7 @@ public class CategoryController {
                 ).build();
             }
 
+            // Delete category
             service.delete(id);
 
             return Response.ok(

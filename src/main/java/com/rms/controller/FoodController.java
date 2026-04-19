@@ -1,21 +1,27 @@
 package com.rms.controller;
 
+// Import model, service, validator
 import com.rms.model.FoodItem;
 import com.rms.service.FoodService;
 import com.rms.validation.FoodValidator;
 
+// JAX-RS imports
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 import java.util.List;
 
+// Base URL: /api/foods
 @Path("/foods")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class FoodController {
 
+    // Service layer
     FoodService service;
 
+    // Constructor
     public FoodController() throws Exception {
         this.service = new FoodService();
     }
@@ -25,16 +31,18 @@ public class FoodController {
     public Response addFood(FoodItem food) {
         try {
 
+            // Validate food name
             if (food.getName() == null || food.getName().isEmpty()) {
                 return Response.status(400).entity(
-                "{"
-                + "\"message\":\"Food name required\","
-                + "\"statusCode\":400,"
-                + "\"path\":\"/api/foods\""
-                + "}"
-            ).build();
+                    "{"
+                    + "\"message\":\"Food name required\","
+                    + "\"statusCode\":400,"
+                    + "\"path\":\"/api/foods\""
+                    + "}"
+                ).build();
             }
 
+            // Validate price
             if (food.getPrice() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -44,6 +52,7 @@ public class FoodController {
                 ).build();
             }
 
+            // Validate restaurant & category IDs
             if (food.getRestaurantId() <= 0 || food.getCategoryId() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -53,17 +62,20 @@ public class FoodController {
                 ).build();
             }
 
+            // Custom validator
             String error = FoodValidator.validateCreate(food);
-            if(error != null){
+
+            if (error != null) {
                 return Response.status(400).entity(
                     "{"
-                    + "\"message\":\""+error+"\","
+                    + "\"message\":\"" + error + "\","
                     + "\"statusCode\":400,"
                     + "\"path\":\"/api/foods\""
                     + "}"
                 ).build();
             }
 
+            // Save food item
             service.create(food);
 
             return Response.status(201).entity(
@@ -90,6 +102,7 @@ public class FoodController {
     public Response getFoods(@PathParam("restaurantId") int restaurantId) {
         try {
 
+            // Validate restaurant ID
             if (restaurantId <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -99,8 +112,10 @@ public class FoodController {
                 ).build();
             }
 
+            // Fetch food items
             List<FoodItem> list = service.getByRestaurant(restaurantId);
 
+            // If empty → 404
             if (list.isEmpty()) {
                 return Response.status(404).entity(
                     "{"
@@ -127,6 +142,7 @@ public class FoodController {
     public Response updateFood(FoodItem food) {
         try {
 
+            // Validate ID
             if (food.getId() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -136,15 +152,17 @@ public class FoodController {
                 ).build();
             }
 
+            // Validate name
             if (food.getName() == null || food.getName().isEmpty()) {
                 return Response.status(400).entity(
                     "{"
                     + "\"message\":\"Food name required\","
                     + "\"statusCode\":400"
                     + "}"
-                ).build();  
+                ).build();
             }
 
+            // Validate price
             if (food.getPrice() <= 0) {
                 return Response.status(400).entity(
                     "{"
@@ -154,20 +172,23 @@ public class FoodController {
                 ).build();
             }
 
+            // Custom validator
             String error = FoodValidator.validateUpdate(food);
-            if(error != null){
+
+            if (error != null) {
                 return Response.status(400).entity(
                     "{"
-                    + "\"message\":\""+error+"\","
+                    + "\"message\":\"" + error + "\","
                     + "\"statusCode\":400,"
                     + "\"path\":\"/api/foods\""
                     + "}"
                 ).build();
             }
 
+            // Update food
             service.update(food);
 
-           return Response.ok(
+            return Response.ok(
                 "{"
                 + "\"message\":\"Food Updated Successfully\","
                 + "\"statusCode\":200,"
@@ -190,8 +211,10 @@ public class FoodController {
     @Path("/{id}")
     public Response deleteFood(@PathParam("id") int id) {
         try {
+
+            // Validate ID
             if (id <= 0) {
-               return Response.status(400).entity(
+                return Response.status(400).entity(
                     "{"
                     + "\"message\":\"Invalid Food ID\","
                     + "\"statusCode\":400"
@@ -199,7 +222,8 @@ public class FoodController {
                 ).build();
             }
 
-            service.delete(id);  // Assuming a service.delete method exists
+            // Delete food item
+            service.delete(id);
 
             return Response.ok(
                 "{"
