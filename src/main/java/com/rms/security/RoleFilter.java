@@ -111,17 +111,39 @@ public class RoleFilter implements ContainerRequestFilter {
         String roles = JwtUtil.getRole(token);
 
         // 🔥 Allow only OWNER & ADMIN
-        if (!(roles.equals("OWNER") || roles.equals("ADMIN"))) {
-            requestContext.abortWith(
-                Response.status(Response.Status.FORBIDDEN)
-                .entity(
+        if (path.startsWith("restaurants") || path.startsWith("categories") || path.startsWith("foods")) {
+
+            if (!(roles.equals("OWNER") || roles.equals("ADMIN"))) {
+                requestContext.abortWith(
+                    Response.status(Response.Status.FORBIDDEN)
+                    .entity(
+                        "{"
+                        + "\"message\":\"Access denied OWNER or ADMIN only  \","
+                        + "\"statusCode\":403,"
+                        + "\"path\":\"" + path + "\""
+                        + "}"
+                    ).build()
+                );
+            }
+        }
+
+        // 🛒 Allow only CUSTOMER APIs
+        if (path.startsWith("cart") || path.startsWith("orders") || path.startsWith("payments")) {
+
+            if (!role.equals("CUSTOMER")) {
+                requestContext.abortWith(
+                    Response.status(Response.Status.FORBIDDEN).entity(
                     "{"
-                    + "\"message\":\"Access denied OWNER or ADMIN only  \","
+                    + "\"message\"\"Access denied CUSTOMER only\","
                     + "\"statusCode\":403,"
                     + "\"path\":\"" + path + "\""
                     + "}"
-                ).build()
-            );
+                ).build());
+            }
         }
+
+        // Public APIs (no token required)
+        if (path.startsWith("auth") || path.startsWith("test"))
+            return;
     }
 }

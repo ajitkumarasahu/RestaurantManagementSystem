@@ -51,6 +51,11 @@ public class JwtUtil {
         return (String) getClaims(token).get("role");
     }
 
+    public static int getUserId(String token) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserId'");
+    }
+    
     // =========================
     // ✅ VALIDATE TOKEN
     // =========================
@@ -85,4 +90,6 @@ public class JwtUtil {
 
         return claims.get("role", String.class);
     }
+
+    
 }
