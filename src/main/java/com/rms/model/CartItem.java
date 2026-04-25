@@ -4,7 +4,7 @@ public class CartItem {
 
     private int id;
     private int cartId;
-    private int foodId;
+    private int foodItemId; 
     private int quantity;
 
     public CartItem() {}
@@ -17,10 +17,10 @@ public class CartItem {
      * @param foodId the ID of the food item
      * @param quantity the quantity of the food item in the cart
      */
-    public CartItem(int id, int cartId, int foodId, int quantity) {
+    public CartItem(int id, int cartId, int foodItemId, int quantity) {
         this.id = id;
         this.cartId = cartId;
-        this.foodId = foodId;
+        this.foodItemId = foodItemId;
         this.quantity = quantity;
     }
 
@@ -30,8 +30,8 @@ public class CartItem {
     public int getCartId() { return cartId; }
     public void setCartId(int cartId) { this.cartId = cartId; }
 
-    public int getFoodId() { return foodId; }
-    public void setFoodId(int foodId) { this.foodId = foodId; }
+    public int getFoodItemId() { return foodItemId; }
+    public void setFoodItemId(int foodItemId) { this.foodItemId = foodItemId; }
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }

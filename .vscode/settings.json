@@ -1,3 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "codeiumEnterprise.portalUrl": "https://your-company.codeium.com",
+    "github-enterprise.uri": "https://your-company.codeium.com"
 }
