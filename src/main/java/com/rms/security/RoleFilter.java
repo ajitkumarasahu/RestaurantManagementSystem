@@ -38,6 +38,20 @@ public class RoleFilter implements ContainerRequestFilter {
         // Extract role from JWT token
         String role = JwtUtil.extractRole(token);
 
+        // If role is missing or invalid → block access
+        if (role == null) {
+            requestContext.abortWith(
+                Response.status(Response.Status.FORBIDDEN)
+                .entity(
+                    "{"
+                    + "\"message\":\"Invalid token - role missing\","
+                    + "\"statusCode\":403,"
+                    + "\"path\":\"" + path + "\""
+                    + "}"
+                ).build()
+            );
+        }
+
         // =========================
         // ADMIN ACCESS CONTROL
         // =========================
@@ -143,7 +157,7 @@ public class RoleFilter implements ContainerRequestFilter {
         }
 
         // Public APIs (no token required)
-        if (path.startsWith("auth") || path.startsWith("test"))
+        if (path.startsWith("auth") || path.startsWith("test") || path.startsWith("secure")) 
             return;
     }
 }
