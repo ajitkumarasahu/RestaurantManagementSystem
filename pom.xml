@@ -1,27 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<!-- Root element of a Maven project.
+     Defines project metadata, dependencies, and build configuration -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+               http://maven.apache.org/xsd/maven-4.0.0.xsd">         
+         
+    <!-- Version of POM model. Always 4.0.0 for modern Maven -->
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Unique identifier for your organization/project group
+         Think of it like a Java package name -->
     <groupId>com.rms</groupId>
+
+    <!-- Name of the project (artifact produced after build) -->
     <artifactId>RestaurantManagementSystem</artifactId>
+
+    <!-- Version of your application -->
     <version>1.0</version>
+
+    <!-- Packaging type:
+         'war' means this project builds a Web Application Archive
+         Used for deployment on servers like Tomcat -->
     <packaging>war</packaging>
 
+    <!-- Human-readable project name -->
     <name>RestaurantManagementSystem</name>
 
+    <!-- Central place to define reusable values -->
     <properties>
+        <!-- Java version used for compiling source code -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- Encoding standard to avoid character issues -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Jersey version centralized to avoid repetition -->
         <jersey.version>3.1.5</jersey.version>
     </properties>
 
     <dependencies>
 
-        <!-- Servlet API (Tomcat provides it) -->
+        <!-- Servlet API
+             Provides core web features like HttpServlet, request/response handling
+             
+             IMPORTANT: scope=provided means:
+             - The server (like Tomcat) already provides this
+             - It will NOT be packaged in your WAR
+             - Prevents duplication and conflicts -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -29,45 +55,63 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jersey JAX-RS -->
+        <!-- Jersey Servlet Container
+             Enables REST APIs (JAX-RS) inside a servlet container
+             Basically allows you to write REST endpoints -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
             <version>${jersey.version}</version>
         </dependency>
 
+        <!-- HK2 Dependency Injection
+             Required by Jersey for injecting services (like @Inject)
+             Without this, your REST services may fail to initialize -->
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>${jersey.version}</version>
         </dependency>
 
-        <!-- JSON Support -->
+        <!-- JSON support using Jackson
+             Converts Java objects <-> JSON automatically
+             Essential for REST APIs -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey.version}</version>
         </dependency>
 
-        <!-- MySQL JDBC -->
+        <!-- MySQL JDBC Driver
+             Allows Java application to connect to MySQL database
+             Without this, database communication is impossible -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
         </dependency>
 
-        <!-- JWT Token -->
+        <!-- JWT API
+             Provides interfaces for creating and parsing JWT tokens
+             Used for authentication (login systems) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.12.5</version>
         </dependency>
+
+        <!-- JWT Implementation
+             Contains actual logic behind JWT API
+             runtime scope = only needed during execution, not compile -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.12.5</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- JWT Jackson Integration
+             Allows JWT to work with JSON serialization using Jackson -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -75,21 +119,30 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Password Hashing -->
+        <!-- Password hashing library (BCrypt)
+             Used to securely store passwords (never store plain text!)
+             BCrypt automatically handles salting + hashing -->
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
 
-        <!-- JWT API -->
+        <!-- ❗ DUPLICATE DEPENDENCIES BELOW (IMPORTANT NOTE)
+             These are repeated and NOT necessary.
+             Maven will still work, but this is BAD PRACTICE:
+             - Increases build complexity
+             - Can cause version conflicts in larger projects
+             - Should be removed -->
+
+        <!-- Duplicate JWT API -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.12.5</version>
         </dependency>
 
-        <!-- JWT Impl -->
+        <!-- Duplicate JWT Impl -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
@@ -97,7 +150,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JWT Jackson -->
+        <!-- Duplicate JWT Jackson -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -108,6 +161,8 @@
     </dependencies>
 
     <build>
+        <!-- Final name of generated WAR file
+             Output: RestaurantManagementSystem.war -->
         <finalName>RestaurantManagementSystem</finalName>
     </build>
 
