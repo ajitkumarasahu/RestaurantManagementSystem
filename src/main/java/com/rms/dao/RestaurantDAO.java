@@ -183,8 +183,7 @@ public class RestaurantDAO {
             for (Restaurant r : restaurants) {
 
                 ps.setString(1, r.getName());
-                ps.setString(2, r.getAddress());
-                ps.setString(3, r.getPhone());
+                ps.setString(2, r.getAddress()); 
                 ps.setInt(4, r.getId());
 
                 ps.addBatch(); // Add to batch
