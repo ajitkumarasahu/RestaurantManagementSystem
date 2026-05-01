@@ -144,11 +144,11 @@ public class RoleFilter implements ContainerRequestFilter {
         // 🛒 Allow only CUSTOMER APIs
         if (path.startsWith("cart") || path.startsWith("orders") || path.startsWith("payments")) {
 
-            if (!role.equals("CUSTOMER")) {
+            if (!role.equals("CUSTOMER") || !(roles.equals("OWNER") || roles.equals("ADMIN"))) {
                 requestContext.abortWith(
                     Response.status(Response.Status.FORBIDDEN).entity(
                     "{"
-                    + "\"message\"\"Access denied CUSTOMER only\","
+                    + "\"message\"\"ALL Are Acesss\","
                     + "\"statusCode\":403,"
                     + "\"path\":\"" + path + "\""
                     + "}"
