@@ -148,7 +148,7 @@ public class RoleFilter implements ContainerRequestFilter {
                 requestContext.abortWith(
                     Response.status(Response.Status.FORBIDDEN).entity(
                     "{"
-                    + "\"message\"\"ALL Are Acesss\","
+                    + "\"message\"\"ALL Are Access\","
                     + "\"statusCode\":403,"
                     + "\"path\":\"" + path + "\""
                     + "}"
