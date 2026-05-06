@@ -4,37 +4,28 @@ public class OrderItem {
 
     private int id;
     private int orderId;
-    private int foodId;
+    private int foodItemId;
     private int quantity;
     private double price;
 
-    public OrderItem() {}
+    public OrderItem(){}
 
-    /**
-     * Constructs a new OrderItem with the specified ID, order ID, food ID, quantity, and price.
-     *
-     * @param id the ID of the order item
-     * @param orderId the ID of the order to which this item belongs
-     * @param foodId the ID of the food item
-     * @param quantity the quantity of the food item in the order
-     * @param price the price of the food item in the order
-     */
-    public OrderItem(int id, int orderId, int foodId, int quantity, double price) {
-        this.id = id;
+    public OrderItem(int orderId, int foodItemId, int quantity, double price) {
         this.orderId = orderId;
-        this.foodId = foodId;
+        this.foodItemId = foodItemId;
         this.quantity = quantity;
         this.price = price;
     }
 
+    // getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public int getOrderId() { return orderId; }
     public void setOrderId(int orderId) { this.orderId = orderId; }
 
-    public int getFoodId() { return foodId; }
-    public void setFoodId(int foodId) { this.foodId = foodId; }
+    public int getFoodItemId() { return foodItemId; }
+    public void setFoodItemId(int foodItemId) { this.foodItemId = foodItemId; }
 
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }

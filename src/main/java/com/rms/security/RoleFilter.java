@@ -148,7 +148,7 @@ public class RoleFilter implements ContainerRequestFilter {
                 requestContext.abortWith(
                     Response.status(Response.Status.FORBIDDEN).entity(
                     "{"
-                    + "\"message\"\"Access denied CUSTOMER only\","
+                    + "\"message\":\"Access denied CUSTOMER only\","
                     + "\"statusCode\":403,"
                     + "\"path\":\"" + path + "\""
                     + "}"

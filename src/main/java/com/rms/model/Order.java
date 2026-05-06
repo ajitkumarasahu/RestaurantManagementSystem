@@ -1,37 +1,43 @@
 package com.rms.model;
 
+import java.time.LocalDateTime;
+
 public class Order {
 
     private int id;
     private int userId;
+    private int restaurantId;
     private double totalAmount;
     private String status;
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     public Order() {}
 
     /**
-     * Constructs a new Order with the specified ID, user ID, total amount, status, and creation date.
-     *
-     * @param id the ID of the order
-     * @param userId the ID of the user who placed the order
-     * @param totalAmount the total amount of the order
-     * @param status the status of the order (e.g., "pending", "completed", "cancelled")
-     * @param createdAt the date and time when the order was created
+     * Constructs a new Order with the specified user ID, restaurant ID, total amount, and status.
+     * 
+     * @param userId 
+     * @param restaurantId
+     * @param totalAmount
+     * @param status
      */
-    public Order(int id, int userId, double totalAmount, String status, String createdAt) {
-        this.id = id;
+
+    public Order(int userId, int restaurantId, double totalAmount, String status) {
         this.userId = userId;
+        this.restaurantId = restaurantId;
         this.totalAmount = totalAmount;
         this.status = status;
-        this.createdAt = createdAt;
     }
 
+    // getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public int getRestaurantId() { return restaurantId; }
+    public void setRestaurantId(int restaurantId) { this.restaurantId = restaurantId; }
 
     public double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
@@ -39,6 +45,6 @@ public class Order {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
