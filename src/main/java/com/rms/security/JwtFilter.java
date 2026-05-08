@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 // Marks this class as a provider (auto-detected by Jersey)
 import jakarta.ws.rs.ext.Provider;
 
+// Utility class for JWT operations (token validation, role extraction, etc.)
 import java.io.IOException;
 
 // This filter runs BEFORE every request reaches your API
