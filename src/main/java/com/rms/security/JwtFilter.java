@@ -39,11 +39,11 @@ public class JwtFilter implements ContainerRequestFilter {
             requestContext.abortWith(
                 Response.status(Response.Status.UNAUTHORIZED)
                 .entity(
-                "{"
-                + "\"message\":\"Token Missing\","
-                + "\"statusCode\":401,"
-                + "\"path\":\"" + requestContext.getUriInfo().getPath() + "\""
-                + "}"
+                    "{"
+                    + "\"message\":\"Token Missing\","
+                    + "\"statusCode\":401,"
+                    + "\"path\":\"" + requestContext.getUriInfo().getPath() + "\""
+                    + "}"
                 ).build()
             );
             return;
