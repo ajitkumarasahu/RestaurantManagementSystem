@@ -1,5 +1,6 @@
 package com.rms.controller;
 
+import jakarta.ws.rs.Consumes;
 // Annotation for HTTP GET method
 import jakarta.ws.rs.GET;
 
@@ -20,6 +21,8 @@ public class TestController {
 
     // Handles HTTP GET requests
     @GET
+    // Accept JSON input (not really needed for GET, but added for consistency)
+    @Consumes(MediaType.APPLICATION_JSON)
 
     // Response will be returned in JSON format
     @Produces(MediaType.APPLICATION_JSON)
