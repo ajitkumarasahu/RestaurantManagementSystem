@@ -25,9 +25,10 @@ public class JwtFilter implements ContainerRequestFilter {
         // Get requested API path (e.g., /api/auth/login, /api/secure)
         String path = requestContext.getUriInfo().getPath();
 
-        // Skip authentication for auth endpoints (login & register)
-        if (path.contains("auth"))
+        // Skip authentication for auth endpoints (login & register, etc.)
+        if (path.contains("auth") || path.contains("test") || path.contains("secure")) {
             return;
+        }
 
         // Get Authorization header
         String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);

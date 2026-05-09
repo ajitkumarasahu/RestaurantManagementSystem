@@ -153,9 +153,5 @@ public class RoleFilter implements ContainerRequestFilter {
                 ).build());
             }
         }
-
-        // Public APIs (no token required)
-        if (path.startsWith("auth") || path.startsWith("test") || path.startsWith("secure")) 
-            return;
     }
 }
