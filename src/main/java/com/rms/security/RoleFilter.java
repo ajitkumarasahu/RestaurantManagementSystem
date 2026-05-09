@@ -107,8 +107,6 @@ public class RoleFilter implements ContainerRequestFilter {
             }
         }
         
-        ///String token = authHeader.substring("Bearer ".length());
-
         if (!JwtUtil.validateToken(token)) {
             requestContext.abortWith(
                 Response.status(Response.Status.FORBIDDEN)

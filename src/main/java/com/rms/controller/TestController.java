@@ -49,7 +49,7 @@ public class TestController {
         "{"
             + "\"status\":\"SUCCESS\","
             + "\"statusCode\":200,"
-            + "\"message\":\"Restaurant Management System API is working!\","
+            + "\"message\":\"Restaurant Management System API is working! Successfully\","
             + "\"path\":\"/api/test\","
             + "\"date\":\"" + now.format(dateFormatter) + "\","
             + "\"time\":\"" + now.format(timeFormatter) + "\","
