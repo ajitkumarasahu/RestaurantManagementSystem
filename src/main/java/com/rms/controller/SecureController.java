@@ -6,9 +6,6 @@ import jakarta.ws.rs.GET;
 // Defines the base path for this controller
 import jakarta.ws.rs.Path;
 
-// (Optional here, since you're returning String directly)
-import jakarta.ws.rs.core.Response;
-
 // Base URL: /api/secure
 @Path("/secure")
 public class SecureController {
@@ -17,11 +14,16 @@ public class SecureController {
     @GET
     public String securedAPI() {
 
-        // JSON response as String
-        return "{"
+        // Manually building a JSON response as a String
+        String response = 
+
+        "{"
             + "\"message\":\"You accessed a SECURED API 🎉\","
             + "\"statusCode\":200,"
             + "\"path\":\"/api/secure\""
-            + "}";
+        + "}";
+
+        // Return the JSON response as a String
+        return response;
     }
 }
