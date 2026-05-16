@@ -1,16 +1,9 @@
 package com.rms.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
 // Import model, JWT utility, and service layer
 import com.rms.model.User;
 import com.rms.security.JwtUtil;
 import com.rms.service.AuthService;
-import com.rms.util.DBConnection;
 
 // JAX-RS imports
 import jakarta.ws.rs.*;
@@ -41,7 +34,7 @@ public class AuthController {
         String result =  authService.register(user);
 
         // If registration successful
-        if (result.equals("User Registered Successfully")) {
+        if (result.equals("Registered Successfully")) {
 
             return Response.status(Response.Status.CREATED) // HTTP 201
             .entity(
